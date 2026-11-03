@@ -1515,8 +1515,8 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
 #ejemplo-1 .demo .card{--p-texto:var(--c-blanco);--p-texto-2:var(--c-blanco-72);--p-boton-fondo:var(--c-blanco);--p-boton-texto:var(--c-negro);--p-sel-fondo:var(--c-blanco-10);--p-error:var(--c-coral);--p-foco:var(--c-ambar);--p-chip-pausada-borde:var(--c-ambar);--p-chip-pausada-texto:var(--c-ambar);color:var(--p-texto);text-shadow:0 1px 3px rgba(0,0,0,.85),0 0 1px rgba(0,0,0,.6)}
 #ejemplo-1 .demo .card .btn{text-shadow:none}
 #ejemplo-1 .demo .card--blanca{background:transparent;--p-hoja-texto:var(--c-blanco);--p-hoja-texto-2:var(--c-blanco-72);--p-hoja-fondo:var(--c-negro);--p-card-blanca-borde:var(--p-borde-card)} /* «Sumá otra suscripción» con el mismo estilo que las cards de suscripción */ /* sobre la foto: texto blanco con sombra negra en los dos temas */
-#ejemplo-1 .demo .card::before{content:"";position:absolute;inset:0;z-index:-2;border-radius:inherit;background-color:#000;background-image:linear-gradient(to right,transparent,#000),url("img/mars.jpg");background-repeat:no-repeat;background-attachment:fixed;background-size:calc(var(--m-w) * .25) 100vh,var(--m-w) auto;background-position:calc(var(--m-x) + var(--m-w) * .75) 0,var(--m-x) 50%} /* el borde derecho de la foto se funde con negro para que no se vea dónde termina */
-#ejemplo-1 .demo .card::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:rgba(0,0,0,.2);-webkit-backdrop-filter:blur(1.4px);backdrop-filter:blur(1.4px)} /* cards de suscripción como ventanas a la misma imagen, con blur y un velo negro del 20 % en los dos temas */
+#ejemplo-1 .demo .card::before{content:"";position:absolute;inset:0;z-index:-2;border-radius:inherit;background-color:#000;background-image:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)),linear-gradient(to right,transparent,#000),url("img/mars.jpg");background-repeat:no-repeat;background-attachment:scroll,fixed,fixed;background-size:100% 100%,calc(var(--m-w) * .25) 100vh,var(--m-w) auto;background-position:0 0,calc(var(--m-x) + var(--m-w) * .75) 0,var(--m-x) 50%} /* velo negro del 20 % en los dos temas (pasa a esta capa para que el empañado de los bordes no lo recorte) */ /* el borde derecho de la foto se funde con negro para que no se vea dónde termina */
+#ejemplo-1 .demo .card::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);-webkit-mask-image:linear-gradient(to right,#000,transparent 32px,transparent calc(100% - 32px),#000),linear-gradient(to bottom,#000,transparent 32px,transparent calc(100% - 32px),#000);mask-image:linear-gradient(to right,#000,transparent 32px,transparent calc(100% - 32px),#000),linear-gradient(to bottom,#000,transparent 32px,transparent calc(100% - 32px),#000)} /* ventana empañada: blur solo en una franja de 32 px que sigue el borde de la card (se desvanece hacia adentro); el centro queda nítido, sin tono claro */
 @media (min-width:760px){#ejemplo-1 .velo--hoja{align-items:center;padding:var(--e5)}#ejemplo-1 .velo--hoja .hoja{border-radius:var(--r-hoja)}} /* «Ver detalle»: en pantallas anchas la hoja se centra con todas las esquinas redondeadas; en el celular sigue subiendo desde abajo */
 #ejemplo-1 .pc.is-completa .demo{min-height:100vh;display:flex;flex-direction:column}#ejemplo-1 .pc.is-completa .demo > .demo-col{flex:1}#ejemplo-1 .demo .pie{margin-top:auto} /* el pie queda siempre abajo de la pantalla */
 .pc-barra{display:none}
@@ -1526,6 +1526,19 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
 .pc.is-completa .pc-barra{display:flex;gap:var(--e2);position:fixed;right:var(--e4);bottom:var(--e4);z-index:1}
 /* Vista celular (botón «Ver como celular»): la pantalla de ejemplo a 390 px, sin costado, con Marte centrado detrás de las cards */
 #ejemplo-1 .pc.is-movil .demo,#ejemplo-1 .pc.is-movil.is-completa .demo{max-width:390px;margin-left:auto;margin-right:auto}
+/* Ejemplo 1 · «Tu envío»: línea de tiempo del estado del envío, sin card, con el estilo del indicador de pasos (barras de 3 px, las hechas en el color del texto) y etiquetas */
+#ejemplo-1 .ej-envio{display:flex;flex-direction:column;gap:var(--e3)}
+#ejemplo-1 .ej-envio{margin-top:auto;margin-bottom:auto}#ejemplo-1 .demo .ej-envio ~ .pie{margin-top:0} /* en pantalla completa, la línea de tiempo queda centrada en el espacio libre entre la última card y el pie (el pie sigue abajo) */
+#ejemplo-1 .ej-linea{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+#ejemplo-1 .ej-linea li{display:flex;flex-direction:column;gap:var(--e1);min-width:0}
+#ejemplo-1 .ej-linea li::before{content:"";height:3px;border-radius:2px;background:var(--p-separador);margin-bottom:var(--e2)}
+#ejemplo-1 .ej-linea li.hecho::before{background:var(--p-texto)}
+#ejemplo-1 .ej-linea li .lbl{color:var(--p-texto-2)}
+#ejemplo-1 .ej-linea li.actual .lbl{color:var(--p-texto);font-weight:600}
+/* Ejemplo 1 · pantalla completa (computadora): encabezado y pie a todo el ancho, desde el borde de la imagen de Marte hasta el borde derecho; el contenido del medio queda en la misma columna de 1040 px */
+#ejemplo-1 .pc.is-completa:not(.is-movil) .demo{max-width:none;margin:0;padding:var(--e5) 0 var(--e5) var(--m-gut)}
+#ejemplo-1 .pc.is-completa:not(.is-movil) .demo-col > .hd,#ejemplo-1 .pc.is-completa:not(.is-movil) .demo-col > .pie{padding-left:var(--e5);padding-right:var(--e5)}
+#ejemplo-1 .pc.is-completa:not(.is-movil) .demo-col > :not(.hd):not(.pie){max-width:calc(1040px - 2 * var(--e5));margin-left:var(--e5);margin-right:var(--e5)}
 #ejemplo-1 .pc.is-movil{--m-w:1000px;--m-x:calc(50vw - 500px)}
 #ejemplo-1 .pc.is-movil .t1{font-size:var(--t1-tam)} /* el título usa el tamaño de celular (34 px), no el de computadora */
 #ejemplo-1 .pc.is-movil.is-completa::before{display:none}
@@ -1553,6 +1566,19 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
 @media (min-width:760px){#ejemplo-2 .velo--hoja{align-items:center;padding:var(--e5)}#ejemplo-2 .velo--hoja .hoja{border-radius:var(--r-hoja)}} /* «Ver detalle»: en pantallas anchas la hoja se centra con todas las esquinas redondeadas; en el celular sigue subiendo desde abajo */
 #ejemplo-2 .pc.is-completa .demo{min-height:100vh;display:flex;flex-direction:column}#ejemplo-2 .pc.is-completa .demo > .demo-col{flex:1}#ejemplo-2 .demo .pie{margin-top:auto} /* el pie queda siempre abajo de la pantalla */
 #ejemplo-2 .pc.is-movil .demo,#ejemplo-2 .pc.is-movil.is-completa .demo{max-width:390px;margin-left:auto;margin-right:auto}
+/* Ejemplo 2 · pantalla completa (computadora): encabezado y pie a todo el ancho de la pantalla; el contenido del medio sigue en una columna de 1040 px, centrada */
+#ejemplo-2 .pc.is-completa:not(.is-movil) .demo{max-width:none;margin:0;padding:var(--e5) 0}
+#ejemplo-2 .pc.is-completa:not(.is-movil) .demo-col > .hd,#ejemplo-2 .pc.is-completa:not(.is-movil) .demo-col > .pie{padding-left:var(--e5);padding-right:var(--e5)}
+@media (min-width:760px){#ejemplo-2 .pc.is-completa:not(.is-movil) .demo-col > .pie{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}#ejemplo-2 .pc.is-completa:not(.is-movil) .demo-col > .pie > .logo{justify-self:start}#ejemplo-2 .pc.is-completa:not(.is-movil) .demo-col > .pie nav{grid-column:2;justify-content:center}} /* pie en pantalla completa: The LAB a la izquierda y los tres links centrados en la pantalla; en pantallas angostas sigue uno debajo del otro */
+#ejemplo-2 .pc.is-completa:not(.is-movil) .demo-col > :not(.hd):not(.pie){width:calc(100% - 2 * var(--e5));max-width:calc(1040px - 2 * var(--e5));margin-left:auto;margin-right:auto}
+/* Ejemplo 2 · «Tu envío»: línea de tiempo del estado del envío, igual que en el ejemplo 1 (estilo del indicador de pasos), centrada entre la última card y el pie */
+#ejemplo-2 .ej-envio{display:flex;flex-direction:column;gap:var(--e3);margin-top:auto;margin-bottom:auto}#ejemplo-2 .demo .ej-envio ~ .pie{margin-top:0}
+#ejemplo-2 .ej-linea{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+#ejemplo-2 .ej-linea li{display:flex;flex-direction:column;gap:var(--e1);min-width:0}
+#ejemplo-2 .ej-linea li::before{content:"";height:3px;border-radius:2px;background:var(--p-separador);margin-bottom:var(--e2)}
+#ejemplo-2 .ej-linea li.hecho::before{background:var(--p-texto)}
+#ejemplo-2 .ej-linea li .lbl{color:var(--p-texto-2)}
+#ejemplo-2 .ej-linea li.actual .lbl{color:var(--p-texto);font-weight:600}
 #ejemplo-2 .pc.is-movil .t1{font-size:var(--t1-tam)} /* el título usa el tamaño de celular (34 px), no el de computadora */
 #ejemplo-2 .pc.is-movil .velo--hoja{align-items:flex-end;padding:0}#ejemplo-2 .pc.is-movil .velo--hoja .hoja{max-width:390px;border-radius:var(--r-hoja) var(--r-hoja) 0 0}
 /* Ejemplo 3 · Agustín (como el ejemplo 2, con zoom en los planetas) */
@@ -1579,6 +1605,19 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
 @media (min-width:760px){#ejemplo-3 .velo--hoja{align-items:center;padding:var(--e5)}#ejemplo-3 .velo--hoja .hoja{border-radius:var(--r-hoja)}} /* «Ver detalle»: en pantallas anchas la hoja se centra con todas las esquinas redondeadas; en el celular sigue subiendo desde abajo */
 #ejemplo-3 .pc.is-completa .demo{min-height:100vh;display:flex;flex-direction:column}#ejemplo-3 .pc.is-completa .demo > .demo-col{flex:1}#ejemplo-3 .demo .pie{margin-top:auto} /* el pie queda siempre abajo de la pantalla */
 #ejemplo-3 .pc.is-movil .demo,#ejemplo-3 .pc.is-movil.is-completa .demo{max-width:390px;margin-left:auto;margin-right:auto}
+/* Ejemplo 3 · pantalla completa (computadora): encabezado y pie a todo el ancho de la pantalla; el contenido del medio sigue en una columna de 1040 px, centrada */
+#ejemplo-3 .pc.is-completa:not(.is-movil) .demo{max-width:none;margin:0;padding:var(--e5) 0}
+#ejemplo-3 .pc.is-completa:not(.is-movil) .demo-col > .hd,#ejemplo-3 .pc.is-completa:not(.is-movil) .demo-col > .pie{padding-left:var(--e5);padding-right:var(--e5)}
+@media (min-width:760px){#ejemplo-3 .pc.is-completa:not(.is-movil) .demo-col > .pie{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}#ejemplo-3 .pc.is-completa:not(.is-movil) .demo-col > .pie > .logo{justify-self:start}#ejemplo-3 .pc.is-completa:not(.is-movil) .demo-col > .pie nav{grid-column:2;justify-content:center}} /* pie en pantalla completa: The LAB a la izquierda y los tres links centrados en la pantalla; en pantallas angostas sigue uno debajo del otro */
+#ejemplo-3 .pc.is-completa:not(.is-movil) .demo-col > :not(.hd):not(.pie){width:calc(100% - 2 * var(--e5));max-width:calc(1040px - 2 * var(--e5));margin-left:auto;margin-right:auto}
+/* Ejemplo 3 · «Tu envío»: línea de tiempo del estado del envío, igual que en el ejemplo 1 (estilo del indicador de pasos), centrada entre la última card y el pie */
+#ejemplo-3 .ej-envio{display:flex;flex-direction:column;gap:var(--e3);margin-top:auto;margin-bottom:auto}#ejemplo-3 .demo .ej-envio ~ .pie{margin-top:0}
+#ejemplo-3 .ej-linea{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+#ejemplo-3 .ej-linea li{display:flex;flex-direction:column;gap:var(--e1);min-width:0}
+#ejemplo-3 .ej-linea li::before{content:"";height:3px;border-radius:2px;background:var(--p-separador);margin-bottom:var(--e2)}
+#ejemplo-3 .ej-linea li.hecho::before{background:var(--p-texto)}
+#ejemplo-3 .ej-linea li .lbl{color:var(--p-texto-2)}
+#ejemplo-3 .ej-linea li.actual .lbl{color:var(--p-texto);font-weight:600}
 #ejemplo-3 .pc.is-movil .t1{font-size:var(--t1-tam)} /* el título usa el tamaño de celular (34 px), no el de computadora */
 #ejemplo-3 .pc.is-movil .velo--hoja{align-items:flex-end;padding:0}#ejemplo-3 .pc.is-movil .velo--hoja .hoja{max-width:390px;border-radius:var(--r-hoja) var(--r-hoja) 0 0}
 /* Ejemplo 4 · Viviana: «Viaje a la órbita». Un recorrido del despegue al plan, con fotos reales y efectos (parallax, estrellas, despegue). */
@@ -1683,6 +1722,14 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
 @container (min-width:700px){#ejemplo-4 .e4-cafes,#ejemplo-4 .e4-destinos{grid-template-columns:repeat(3,minmax(0,1fr))}#ejemplo-4 .e4-plan{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}#ejemplo-4 .e4-plan .e4-escena{min-height:100%}#ejemplo-4 .e4-escena .t1{font-size:var(--t1-tam-esc)}}
 #ejemplo-4 .pc.is-completa .demo{min-height:100vh}
 #ejemplo-4 .pc.is-movil .demo,#ejemplo-4 .pc.is-movil.is-completa .demo{max-width:390px;margin-left:auto;margin-right:auto}
+/* Ejemplo 4 · pantalla completa (computadora): ocupa toda la pantalla, sin bordes negros. Encabezado, pasos y pie a todo el ancho; la pantalla del paso crece hasta llenar el alto entre los pasos y el pie, y su escena (la foto) se estira con ella. Ajuste de Agustín (03/11). */
+#ejemplo-4 .pc.is-completa:not(.is-movil) .demo{max-width:none;margin:0;display:flex;flex-direction:column}
+#ejemplo-4 .pc.is-completa:not(.is-movil) .e4-pant:not([hidden]){flex:1}
+#ejemplo-4 .pc.is-completa:not(.is-movil) .e4-pant > .e4-escena,#ejemplo-4 .pc.is-completa:not(.is-movil) .e4-pant > .e4-plan,#ejemplo-4 .pc.is-completa:not(.is-movil) .e4-pant > .e4-destinos{flex:1}
+#ejemplo-4 .pc.is-completa:not(.is-movil) .e4-plan > .e4-escena{min-height:100%}
+#ejemplo-4 .pc.is-completa:not(.is-movil) .e4-escena--despegue .e4-foto{background-size:auto 100%} /* despegue en pantalla completa: la foto no se estira a lo ancho; ocupa el alto, centrada, y a los costados queda negro */
+@media (min-width:760px){#ejemplo-4 .pc.is-completa:not(.is-movil) .e4-plan{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:stretch}#ejemplo-4 .pc.is-completa:not(.is-movil) .e4-plan > .e4-hoja{justify-content:center}} /* «Tu plan»: la foto del planeta un poco más angosta y el formulario ocupa todo el alto del lado derecho, con su contenido centrado */
+@media (min-width:760px){#ejemplo-4 .pc.is-completa:not(.is-movil) .demo > .pie{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}#ejemplo-4 .pc.is-completa:not(.is-movil) .demo > .pie > .logo{justify-self:start}#ejemplo-4 .pc.is-completa:not(.is-movil) .demo > .pie nav{grid-column:2;justify-content:center}} /* pie: The LAB a la izquierda y los links centrados, como en los ejemplos 2 y 3 */
 #ejemplo-4 .pc.is-movil .t1{font-size:var(--t1-tam)}
 @media (prefers-reduced-motion:reduce){#ejemplo-4 .e4-pant,#ejemplo-4 .e4-estrellas,#ejemplo-4 .e4-sonda::before,#ejemplo-4 .e4-plan .e4-foto,#ejemplo-4 .e4-cafe,#ejemplo-4 .chip-sel span,#ejemplo-4 .e4-elegido,#ejemplo-4 .e4-aviso{animation:none!important}#ejemplo-4 .e4-destino{transform:none}#ejemplo-4 .e4-progreso span{transition:none}#ejemplo-4 .e4-foto,#ejemplo-4 .e4-estrellas,#ejemplo-4 .e4-sonda{transform:none;transition:none}#ejemplo-4 .e4-destino::before,#ejemplo-4 .e4-cafe,#ejemplo-4 .e4-btn-fuego,#ejemplo-4 .e4-btn-ambar,#ejemplo-4 .e4-btn-coral{transition:none}}
 /* Ejemplo 4b · Viviana: el mismo viaje del ejemplo 4 con la plantilla del mockup (columna angosta, pasos en barras, cards con orbe, opciones con punto). Las fotos van dentro de los orbes. */
@@ -1739,6 +1786,25 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
 @container (min-width:860px){#ejemplo-4b .e4b-cafes,#ejemplo-4b .e4b-destinos{grid-template-columns:repeat(3,minmax(0,1fr))}}
 #ejemplo-4b .pc.is-completa .demo{min-height:100vh}
 #ejemplo-4b .pc.is-movil .demo,#ejemplo-4b .pc.is-movil.is-completa .demo{max-width:390px;margin-left:auto;margin-right:auto}
+#ejemplo-4b .e4b-col > .card--blanca{--p-hoja-fondo:var(--p-card-fondo);--p-hoja-texto:var(--p-texto);--p-hoja-texto-2:var(--p-texto-2);--p-card-blanca-borde:var(--p-borde-campo)} /* «Tu viaje» como card oscura con borde (con el estilo de las opciones), en lugar de blanca; en el tema claro toma los colores de card del tema */
+/* Ejemplo 4b · pantalla completa (computadora): sin bordes negros. Encabezado y pie a todo el ancho, el pie siempre abajo (The LAB a la izquierda y links centrados, como en los ejemplos 2 a 4) y el contenido en su columna centrada. Ajuste de Agustín (03/11). */
+#ejemplo-4b .pc.is-completa:not(.is-movil) .demo{max-width:none;margin:0;padding:var(--e5) 0;display:flex;flex-direction:column}
+#ejemplo-4b .pc.is-completa:not(.is-movil) .demo > .demo-col{flex:1}
+#ejemplo-4b .pc.is-completa:not(.is-movil) .demo-col > .hd,#ejemplo-4b .pc.is-completa:not(.is-movil) .demo-col > .pie{padding-left:var(--e5);padding-right:var(--e5)}
+#ejemplo-4b .pc.is-completa:not(.is-movil) .demo-col > :not(.hd):not(.pie){width:calc(100% - 2 * var(--e5));max-width:calc(1040px - 2 * var(--e5));margin-left:auto;margin-right:auto}
+#ejemplo-4b .pc.is-completa:not(.is-movil) .demo-col > .pie{margin-top:auto}
+/* Ejemplo 4b · pantalla completa en pantallas anchas: cada paso usa todo el ancho y el alto. En «Despegue» y «Tu plan», la imagen ocupa la columna izquierda (55 %) de arriba abajo y el formulario va a la derecha, centrado en el alto; «Cabina» y «Destino» quedan en su grilla. En el celular no cambia. Ajuste de Agustín (03/11). */
+@media (min-width:960px){
+#ejemplo-4b .pc.is-completa:not(.is-movil) .demo-col > section.e4b-pant:not([hidden]){display:flex;flex-direction:column;flex:1;max-width:calc(1400px - 2 * var(--e5))}
+#ejemplo-4b .pc.is-completa:not(.is-movil) .demo-col > nav.e4b-ruta:not([hidden]){max-width:calc(1400px - 2 * var(--e5))}
+#ejemplo-4b .pc.is-completa:not(.is-movil) .e4b-col:has(> .e4b-ventana){max-width:none;margin:0;flex:1;position:relative;padding-left:calc(55% + var(--e7));justify-content:center}
+#ejemplo-4b .pc.is-completa:not(.is-movil) .e4b-col:has(> .fila-ext > .e4b-orbe--grande){max-width:none;margin:0;position:relative;padding-left:calc(min(36%, 420px) + var(--e8))}
+#ejemplo-4b .pc.is-completa:not(.is-movil) .e4b-col > .e4b-ventana{position:absolute;left:0;top:0;bottom:0;width:55%;aspect-ratio:auto}
+#ejemplo-4b .pc.is-completa:not(.is-movil) .e4b-col > .fila-ext > .e4b-orbe--grande{position:absolute;left:0;top:0;width:min(36%, 420px);height:auto;aspect-ratio:1} /* «Tu plan»: el planeta redondo de la propuesta, más grande, arriba a la izquierda; el formulario al lado */
+#ejemplo-4b .pc.is-completa:not(.is-movil) .e4b-col:has(> .fila-ext > .e4b-orbe--grande) > .grupo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--e2) var(--e3)}#ejemplo-4b .pc.is-completa:not(.is-movil) .e4b-col:has(> .fila-ext > .e4b-orbe--grande) > .grupo > :not(.opt){grid-column:1 / -1} /* opciones en dos columnas */
+#ejemplo-4b .pc.is-completa:not(.is-movil) .e4b-col:has(> .fila-ext > .e4b-orbe--grande) > .card--blanca{position:absolute;left:0;top:calc(min(420px, 34cqw) + var(--e6));width:min(36%, 420px)} /* el resumen «Tu viaje» va debajo del planeta, en la columna izquierda */
+}
+@media (min-width:760px){#ejemplo-4b .pc.is-completa:not(.is-movil) .demo-col > .pie{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}#ejemplo-4b .pc.is-completa:not(.is-movil) .demo-col > .pie > .logo{justify-self:start}#ejemplo-4b .pc.is-completa:not(.is-movil) .demo-col > .pie nav{grid-column:2;justify-content:center}}
 #ejemplo-4b .pc.is-movil .t1{font-size:var(--t1-tam)}
 @container (max-width:499px){#ejemplo-4b .t1{font-size:var(--t1-tam)}}
 @media (prefers-reduced-motion:reduce){#ejemplo-4b .e4b-pant,#ejemplo-4b .e4b-orbe,#ejemplo-4b .e4b-ojo,#ejemplo-4b .e4b-sonda::before,#ejemplo-4b .e4b-tarjeta,#ejemplo-4b .e4b-dato,#ejemplo-4b .e4b-aviso{animation:none!important}#ejemplo-4b .e4b-sonda,#ejemplo-4b .card,#ejemplo-4b .e4b-orbe,#ejemplo-4b .btn,#ejemplo-4b .e4b-ruta i::after{transition:none;transform:none}}
@@ -1883,6 +1949,16 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
           <a class="btn btn--ks btn--chico" style="align-self:flex-start" href="#">Ver planes</a>
         </article>
 
+        <section class="ej-envio" aria-labelledby="e1-envio-tit">
+          <div class="apilado"><span class="lbl">Tu envío de noviembre · Saturno</span><h4 class="t2" id="e1-envio-tit">En camino</h4></div>
+          <ol class="ej-linea" aria-label="Estado del envío">
+            <li class="hecho"><span class="lbl">Cobrado</span><span class="sm mut">1 nov</span></li>
+            <li class="hecho"><span class="lbl">Preparado</span><span class="sm mut">3 nov</span></li>
+            <li class="hecho actual" aria-current="step"><span class="lbl">En camino</span><span class="sm mut">Desde el 4 nov</span></li>
+            <li><span class="lbl">Entregado</span><span class="sm mut">Estimado 6 nov</span></li>
+          </ol>
+        </section>
+
         <footer class="pie">
           <svg class="logo logo--chico" role="img" aria-label="The LAB"><use href="#logo-thelab"/></svg>
           <nav aria-label="Links del pie (ejemplo de pantalla)"><a href="#">Preguntas frecuentes</a><a href="#">Contacto</a><a href="#">Términos y privacidad</a></nav>
@@ -1958,6 +2034,16 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
           <a class="btn btn--ks btn--chico" style="align-self:flex-start" href="#">Ver planes</a>
         </article>
 
+        <section class="ej-envio" aria-labelledby="e2-envio-tit">
+          <div class="apilado"><span class="lbl">Tu envío de noviembre · Saturno</span><h4 class="t2" id="e2-envio-tit">En camino</h4></div>
+          <ol class="ej-linea" aria-label="Estado del envío">
+            <li class="hecho"><span class="lbl">Cobrado</span><span class="sm mut">1 nov</span></li>
+            <li class="hecho"><span class="lbl">Preparado</span><span class="sm mut">3 nov</span></li>
+            <li class="hecho actual" aria-current="step"><span class="lbl">En camino</span><span class="sm mut">Desde el 4 nov</span></li>
+            <li><span class="lbl">Entregado</span><span class="sm mut">Estimado 6 nov</span></li>
+          </ol>
+        </section>
+
         <footer class="pie">
           <svg class="logo logo--chico" role="img" aria-label="The LAB"><use href="#logo-thelab"/></svg>
           <nav aria-label="Links del pie (ejemplo de pantalla)"><a href="#">Preguntas frecuentes</a><a href="#">Contacto</a><a href="#">Términos y privacidad</a></nav>
@@ -2031,6 +2117,16 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
           <p class="mut sm">Elegí un plan o armá la tuya con el café, la cantidad y la molienda que quieras.</p>
           <a class="btn btn--ks btn--chico" style="align-self:flex-start" href="#">Ver planes</a>
         </article>
+
+        <section class="ej-envio" aria-labelledby="e3-envio-tit">
+          <div class="apilado"><span class="lbl">Tu envío de noviembre · Saturno</span><h4 class="t2" id="e3-envio-tit">En camino</h4></div>
+          <ol class="ej-linea" aria-label="Estado del envío">
+            <li class="hecho"><span class="lbl">Cobrado</span><span class="sm mut">1 nov</span></li>
+            <li class="hecho"><span class="lbl">Preparado</span><span class="sm mut">3 nov</span></li>
+            <li class="hecho actual" aria-current="step"><span class="lbl">En camino</span><span class="sm mut">Desde el 4 nov</span></li>
+            <li><span class="lbl">Entregado</span><span class="sm mut">Estimado 6 nov</span></li>
+          </ol>
+        </section>
 
         <footer class="pie">
           <svg class="logo logo--chico" role="img" aria-label="The LAB"><use href="#logo-thelab"/></svg>
