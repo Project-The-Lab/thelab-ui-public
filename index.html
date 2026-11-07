@@ -88,6 +88,8 @@
 
   /* --- Espaciado (escala propuesta a partir del mockup) --- */
   --e1:4px; --e2:8px; --e3:12px; --e4:16px; --e5:20px; --e6:24px; --e7:28px; --e8:40px; --e9:56px;
+  /* Medidas de formularios y mensajes */
+  --campo-sep:6px; --campo-pad:14px; --icono-msj:18px; --bb-track:.06em;
 
   /* --- Bordes --- */
   --borde:1px; --foco-ancho:2px; --icono-trazo:1.5;
@@ -248,7 +250,7 @@ main{min-width:0;padding:0 var(--e4) var(--e9)}
 .sup-blanca .lbl,.hoja .lbl{color:var(--p-hoja-texto-2)}
 
 /* Formularios */
-.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld{display:flex;flex-direction:column;gap:var(--campo-sep);min-width:0}
 .fld > label,.fld > .fld-etq{font-size:var(--etq-tam);letter-spacing:.08em;text-transform:uppercase;color:var(--p-texto-2)}
 .in{height:var(--h-campo);width:100%;min-width:0;border:var(--borde) solid var(--p-borde-campo);border-radius:var(--r-campo);background:transparent;color:var(--p-texto);padding:0 16px;font-size:var(--campo-tam);font-weight:300}
 .in::placeholder{color:var(--p-texto-2);opacity:1}
@@ -258,7 +260,7 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
 .err{font-size:var(--chico-tam);color:var(--p-error)}
 .sel{position:relative}
 .sel select{appearance:none;-webkit-appearance:none;padding-right:48px;cursor:pointer}
-.sel .ico{position:absolute;right:14px;top:50%;width:20px;height:20px;transform:translateY(-50%);pointer-events:none;color:var(--p-texto)}
+.sel .ico{position:absolute;right:var(--campo-pad);top:50%;width:20px;height:20px;transform:translateY(-50%);pointer-events:none;color:var(--p-texto)}
 .pt select option{background:var(--p-fondo);color:var(--p-texto)}
 .hoja .in{border-color:var(--p-hoja-borde);color:var(--p-hoja-texto)}
 .hoja .fld > label{color:var(--p-hoja-texto-2)}
@@ -347,7 +349,7 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
 
 /* Mensajes */
 .msj{display:flex;align-items:flex-start;gap:var(--e2);font-size:var(--chico-tam)}
-.msj .ico{width:18px;height:18px;margin-top:1px}
+.msj .ico{width:var(--icono-msj);height:var(--icono-msj);margin-top:var(--borde)}
 .msj--error{color:var(--p-error)}
 .msj--aviso{color:var(--p-aviso)}
 .msj--exito{color:var(--p-texto);font-weight:500}
@@ -392,7 +394,7 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
 .bo-sub{font-size:var(--bo-sub-tam);font-weight:var(--bo-sub-peso);margin:0}
 .bo-etq{font-size:var(--bo-etq-tam);font-weight:var(--bo-etq-peso);letter-spacing:.08em;text-transform:uppercase;color:var(--b-texto-2)}
 .bo-mut{color:var(--b-texto-2)}
-.bb{display:inline-flex;align-items:center;justify-content:center;gap:var(--e2);min-height:var(--h-boton-chico);padding:0 20px;border:var(--borde) solid var(--b-boton-borde);border-radius:var(--r-boton);background:var(--b-boton-fondo);color:var(--b-boton-texto);font-size:var(--etq-tam);font-weight:500;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap;cursor:pointer}
+.bb{display:inline-flex;align-items:center;justify-content:center;gap:var(--e2);min-height:var(--h-boton-chico);padding:0 20px;border:var(--borde) solid var(--b-boton-borde);border-radius:var(--r-boton);background:var(--b-boton-fondo);color:var(--b-boton-texto);font-size:var(--etq-tam);font-weight:500;letter-spacing:var(--bb-track);text-transform:uppercase;text-decoration:none;white-space:nowrap;cursor:pointer}
 .bb:hover,.bb.is-hover{background:var(--b-hover)}
 .bb--prim{background:var(--b-prim-fondo);border-color:var(--b-prim-fondo);color:var(--b-prim-texto)}
 .bb--prim:hover,.bb--prim.is-hover{background:var(--b-prim-fondo);opacity:.82}
@@ -400,9 +402,9 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
 .bb.is-focus{outline-color:var(--b-foco)}
 .bb:disabled:hover{background:var(--b-boton-fondo)}
 .bb--prim:disabled:hover{background:var(--b-prim-fondo)}
-.bf{display:flex;flex-direction:column;gap:6px;min-width:0}
+.bf{display:flex;flex-direction:column;gap:var(--campo-sep);min-width:0}
 .bf > label{font-size:var(--bo-etq-tam);font-weight:var(--bo-etq-peso);letter-spacing:.08em;text-transform:uppercase;color:var(--b-texto-2)}
-.bin{height:var(--h-campo-bo);width:100%;min-width:0;padding:0 14px;border:var(--borde) solid var(--b-borde-campo);border-radius:var(--r-bo-campo);background:var(--b-panel);color:var(--b-texto);font-size:var(--bo-cuerpo-tam);font-weight:400}
+.bin{height:var(--h-campo-bo);width:100%;min-width:0;padding:0 var(--campo-pad);border:var(--borde) solid var(--b-borde-campo);border-radius:var(--r-bo-campo);background:var(--b-panel);color:var(--b-texto);font-size:var(--bo-cuerpo-tam);font-weight:400}
 .bo .sel .ico{color:var(--b-texto)}
 .bo select option{background:var(--b-panel);color:var(--b-texto)}
 .filtros{display:flex;flex-wrap:wrap;gap:var(--e3);align-items:flex-end}
@@ -415,7 +417,7 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
 .bg--error{background:var(--e-error-fondo);border-color:var(--e-error);color:var(--e-error)}
 .bg--ok{background:var(--e-exito-fondo);border-color:var(--e-exito-borde);color:var(--e-exito-texto)}
 .bg--num{min-width:var(--h-badge);padding:0 8px}
-.banner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--e3) var(--e4);padding:14px var(--e5);border:var(--borde) solid;border-radius:var(--r-bo-panel);font-size:var(--chico-tam)}
+.banner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--e3) var(--e4);padding:var(--campo-pad) var(--e5);border:var(--borde) solid;border-radius:var(--r-bo-panel);font-size:var(--chico-tam)}
 .banner--aviso{background:var(--e-pausada-fondo);border-color:var(--e-pausada-borde);color:var(--e-pausada-texto)}
 .banner--exito{background:var(--e-exito-fondo);border-color:var(--e-exito-borde);color:var(--e-exito-texto)}
 .banner--error{background:var(--e-error-fondo);border-color:var(--e-error);color:var(--e-error)}
@@ -790,7 +792,7 @@ textarea.in{height:auto;min-height:140px;padding:14px 16px;line-height:1.5;resiz
   <div class="ej">
     <div class="ej-cab">
       <h3 class="t3">Escala de espaciado</h3>
-      <p class="spec">Margen de la página: 20 px en celular y 40 px en escritorio. Relleno de las cards: 20 px.</p>
+      <p class="spec">Margen de la página: 20 px en celular y 40 px en escritorio. Relleno de las cards: 20 px. En formularios y mensajes: 6 px entre la etiqueta y el campo, 14 px de relleno del campo del back office y de los banners, y 18 px el ícono de los mensajes.</p>
       <span class="val"><b>A validar</b> Propuesta del equipo: el mockup no tiene una escala definida; estos valores salen de sus medidas.</span>
     </div>
     <div class="demo pt">
